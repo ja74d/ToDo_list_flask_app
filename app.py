@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -34,5 +34,13 @@ def index():
         db.session.add(task)
         db.session.commit()
         form.task.data = ''
-    tasks = Task.query.all()  
+    tasks = Task.query.all() 
     return render_template('index.html', form=form, tasks=tasks)
+
+@app.route('/done/<int:id>')
+def done(id):
+    task = Task.query.get_or_404(id)
+    task.done = True
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for('index'))
