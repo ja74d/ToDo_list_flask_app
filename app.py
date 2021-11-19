@@ -8,18 +8,27 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 
 db = SQLAlchemy(app)
 
-app.secret_key = 'mysecretkey'
+app.config['SECRET_KEY'] = 'mysecretkey'
 
-#tasks form
-class Tasks:
-    task = db.Column(db.String(255), nullable=False)
-    submit = SubmitField('Add')
+class Tasks(FlaskForm):
+    task = StringField('Task', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    task = db.Column(db.String(100), unique=True, nullable=False)
 
-@app.route('/')
+    def __repr__(self):
+        return f"Task('{self.task}')"
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    task = None
+    form = Tasks()
+    
+        
+    return render_template('index.html', form=form)

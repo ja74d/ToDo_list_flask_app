@@ -1,13 +1,11 @@
-
+<center>
 <h1>ToDo List</h1>
 <br>
-<form method="POST">
-    {{ form.hidden_tag() }}
 
-    {{ form.task.label(class="form-tabel") }}
-    {{ form.task(class="form-control") }}
-    <br>
-    {{ form.submit(class="btn btn-dark") }}
+<form method="POST" action="/">
+    {{ form.hidden_tag() }}
+    {{ form.task.label }} {{ form.task(size=20) }}
+    <input type="submit" value="Go">
 </form>
 
 <html>
@@ -18,3 +16,4 @@
         {{ hidden_tag }}
     </form>
 </html>
+</center>
