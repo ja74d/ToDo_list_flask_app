@@ -29,6 +29,10 @@ class Task(db.Model):
 def index():
     task = None
     form = Tasks()
-    
-        
-    return render_template('index.html', form=form)
+    if form.validate_on_submit():
+        task = Task(task=form.task.data)
+        db.session.add(task)
+        db.session.commit()
+        form.task.data = ''
+    tasks = Task.query.all()  
+    return render_template('index.html', form=form, tasks=tasks)
