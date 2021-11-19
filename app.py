@@ -43,4 +43,5 @@ def done(id):
     task.done = True
     db.session.delete(task)
     db.session.commit()
+    flash(f'{task.task} is done!')
     return redirect(url_for('index'))
