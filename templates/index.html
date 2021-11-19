@@ -1,0 +1,20 @@
+
+<h1>ToDo List</h1>
+<br>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ form.task.label(class="form-tabel") }}
+    {{ form.task(class="form-control") }}
+    <br>
+    {{ form.submit(class="btn btn-dark") }}
+</form>
+
+<html>
+    <title>
+        Todo List
+    </title>
+    <form>
+        {{ hidden_tag }}
+    </form>
+</html>
